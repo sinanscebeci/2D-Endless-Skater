@@ -13,10 +13,10 @@ TagManager:
   - 
   - Water
   - UI
-  - Platforms
-  - 
-  - 
-  - 
+  - Skate
+  - Ground
+  - Road
+  - Player
   - 
   - 
   - 
@@ -40,6 +40,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Sky
+    uniqueID: 4105373583
+    locked: 0
+  - name: CityBackground
+    uniqueID: 2433025623
+    locked: 0
+  - name: City
+    uniqueID: 906408853
+    locked: 0
+  - name: Objects
+    uniqueID: 1621725857
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
