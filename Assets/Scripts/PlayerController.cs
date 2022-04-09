@@ -12,6 +12,10 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     private bool jumpPressed;
     private bool isGrounded;
+    private bool isSliding;
+    private bool slidePressed;
+    public BoxCollider2D regularColl;
+    public GameObject slideColl;
 
     /*//Extra Jump Variables
     private int extraJumps;
@@ -27,6 +31,8 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     private bool isSkating;
     public LayerMask skateLayer;
+    private bool isTouchingCeiling;
+    public Transform ceilingCheck;
 
     private Animator animator;
     private string currentState;
@@ -34,6 +40,7 @@ public class PlayerController : MonoBehaviour
     const string run = "Run";
     const string jump = "Jump";
     const string fall = "Fall";
+    const string slide = "Slide";
 
 
     private void Awake()
@@ -50,26 +57,43 @@ public class PlayerController : MonoBehaviour
         //Check if player is skating
         isSkating = Physics2D.OverlapCircle(groundCheck.position, checkRadius, skateLayer);
 
+        //Check if player's head is touching something
+        isTouchingCeiling = Physics2D.OverlapCircle(ceilingCheck.position, checkRadius, groundLayer);
+
         //Get input for jump
         if (Input.GetButtonDown("Jump") && (isGrounded || isSkating))
         {
             jumpPressed = true;
         }
 
-        if(isSkating)
+        if(Input.GetKeyDown(KeyCode.C) && (isGrounded || isSkating) && !isSliding)
         {
-            ChangeAnimationState(idle);
+            slidePressed = true;
         }
-        if(isGrounded)
+
+        //Animations
+        if(!isSliding)
         {
-            ChangeAnimationState(run);
+            if(isSkating)
+            {
+                ChangeAnimationState(idle);
+            }
+            if(isGrounded)
+            {
+                ChangeAnimationState(run);
+            }
+            if(!isSkating && !isGrounded)
+            {
+                if(rb2d.velocity.y > 0)
+                    ChangeAnimationState(jump);
+                if(rb2d.velocity.y < 0)
+                    ChangeAnimationState(fall);    
+            }
         }
-        if(!isSkating && !isGrounded)
+
+        if(slidePressed)
         {
-            if(rb2d.velocity.y > 0)
-                ChangeAnimationState(jump);
-            if(rb2d.velocity.y < 0)
-                ChangeAnimationState(fall);    
+            StartCoroutine(Slide());
         }
     }
     private void FixedUpdate()
@@ -106,6 +130,30 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    IEnumerator Slide()
+    {
+        ChangeAnimationState(slide);
+        isSliding = true;
+        slidePressed = false;
+        slideColl.SetActive(true);
+        regularColl.enabled = false;
+        yield return new WaitForSeconds(0.5f);
+        if(!isTouchingCeiling)
+        {
+            regularColl.enabled = true;
+            slideColl.SetActive(false);
+            isSliding = false;
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.5f);
+            regularColl.enabled = true;
+            slideColl.SetActive(false);
+            isSliding = false;
+        }
+        
+    }
+
     private void ChangeAnimationState(string newState)
     {
         if(newState == currentState) return;
@@ -113,8 +161,17 @@ public class PlayerController : MonoBehaviour
         currentState = newState;    
     }
 
+    private void OnCollisionEnter2D(Collision2D other) 
+    {
+        if(other.gameObject.layer == 8)
+        {
+            this.gameObject.SetActive(false);
+            Time.timeScale = 0;
+        }
+    }
     private void OnDrawGizmos() 
     {
         Gizmos.DrawWireSphere(groundCheck.position, checkRadius);
+        Gizmos.DrawWireSphere(ceilingCheck.position, checkRadius);
     }
 }
