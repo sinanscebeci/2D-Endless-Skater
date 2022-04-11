@@ -42,6 +42,9 @@ public class PlayerController : MonoBehaviour
     const string fall = "Fall";
     const string slide = "Slide";
 
+    //UI
+    public GameObject gameOverMenu;
+    public GameObject inGameHUD;
 
     private void Awake()
     {
@@ -106,7 +109,10 @@ public class PlayerController : MonoBehaviour
         }
 
         //Player always moves
-        transform.position += new Vector3(speed * Time.fixedDeltaTime, 0, 0);
+        if(isSkating)
+            transform.position += new Vector3(speed, Mathf.Lerp(-0.3f, 0.3f, Mathf.PingPong(Time.time, 1)), 0) * Time.fixedDeltaTime;
+        else
+            transform.position += new Vector3(speed, 0, 0) * Time.fixedDeltaTime;    
 
         /*
         //Jump if jump button is pressed and player has extra jumps
@@ -161,12 +167,14 @@ public class PlayerController : MonoBehaviour
         currentState = newState;    
     }
 
-    private void OnCollisionEnter2D(Collision2D other) 
+    private void OnTriggerEnter2D(Collider2D other) 
     {
         if(other.gameObject.layer == 8)
         {
             this.gameObject.SetActive(false);
             Time.timeScale = 0;
+            gameOverMenu.SetActive(true);
+            inGameHUD.SetActive(false);
         }
     }
     private void OnDrawGizmos() 

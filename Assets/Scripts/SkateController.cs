@@ -5,11 +5,10 @@ using UnityEngine;
 public class SkateController : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
-    // Start is called before the first frame update
 
     void FixedUpdate()
     {
-        transform.position += new Vector3(speed, 0, 0) * Time.fixedDeltaTime;
+        transform.position += new Vector3(speed, Mathf.Lerp(-0.3f, 0.3f, Mathf.PingPong(Time.time, 1)), 0) * Time.fixedDeltaTime;
     }
 
 }
