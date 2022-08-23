@@ -71,8 +71,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1621725857
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9b62cb19ea7f6c04fa505a7c18ba7ab2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -97,7 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf80ba6866602c469a619e9bb59b3eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinCounter: {fileID: 0}
 --- !u!58 &2858085144524091826
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -377,8 +376,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1621725857
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9b62cb19ea7f6c04fa505a7c18ba7ab2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -403,7 +402,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf80ba6866602c469a619e9bb59b3eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinCounter: {fileID: 0}
 --- !u!58 &5196384500301467598
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -532,8 +530,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1621725857
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9b62cb19ea7f6c04fa505a7c18ba7ab2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -558,7 +556,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf80ba6866602c469a619e9bb59b3eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinCounter: {fileID: 0}
 --- !u!58 &6716869970398415555
 CircleCollider2D:
   m_ObjectHideFlags: 0
